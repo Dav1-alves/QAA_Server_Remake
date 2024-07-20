@@ -3,13 +3,22 @@ const app = express()
 var http = require('http');
 const path = require('path');
 const connection = require("./Database/database")
+const CategoriesDB = require('./Categories/Categories')
+const subCategoriesDB = require('./Categories/subCategories/subCategories')
 
 connection.authenticate().then(() => { console.log("Conexão efetuada com sucesso!") }).catch((ErrorMsg) => { console.log("Não foi possivel iniciar uma conexão ao banco de dados! Msg de erro: ".ErrorMsg) })
 
 app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.render('index')
+app.get('/', async (req, res) => {
+    const categories = await CategoriesDB.findAll({
+        include: [{
+            model: subCategoriesDB,
+            limit: 10,
+        }], limit: 4, order: connection.random()
+    })
+    res.render('./index', { categories })
 })
 
 const Nav = require('./Routers/Nav')

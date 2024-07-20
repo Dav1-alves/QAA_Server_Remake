@@ -1,0 +1,33 @@
+<%- include ('../partials/header.ejs') %>
+
+    <body>
+        <%- include ('../partials/menuout.ejs') %>
+
+            <form action="/Categories/Save" method="post">
+                <input type="text" name="name" id="name" placeholder="Nome da Categoria" class="border">
+                <input type="text" name="desc" id="desc" class="border" placeholder="Descrição">
+                <input type="checkbox" name="subCategories" id="subCategories">
+
+                <select name="subCategoriesList" id="subCategoriesList" class="border" disabled>
+                    <% categories.forEach((categories) => { %>
+                        <option value="<%= categories.id %>"><%= categories.name %></option>
+                    <% }) %>
+                </select>
+                <button type="submit">Submit</button>
+                <button type="reset">Cancel</button>
+            </form>
+
+            <script defer>
+                const checkbox = document.querySelector("input[name=subCategories]");
+                const select = document.querySelector("select[name=subCategoriesList]");
+
+                checkbox.addEventListener('change', function () {
+                    if (this.checked) {
+                        select.removeAttribute('disabled', 'disabled');
+                    } else {
+                        select.setAttribute('disabled', 'disabled');
+                    }
+                });
+            </script>
+    </body>
+    <%- include ('../partials/footer.ejs') %>
