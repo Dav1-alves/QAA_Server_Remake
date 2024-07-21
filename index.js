@@ -9,7 +9,8 @@ const subCategoriesDB = require('./Categories/subCategories/subCategories')
 connection.authenticate().then(() => { console.log("Conexão efetuada com sucesso!") }).catch((ErrorMsg) => { console.log("Não foi possivel iniciar uma conexão ao banco de dados! Msg de erro: ".ErrorMsg) })
 
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extended: true}));
 
 app.get('/', async (req, res) => {
     const categories = await CategoriesDB.findAll({
