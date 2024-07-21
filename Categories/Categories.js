@@ -15,12 +15,16 @@ const Categories = connection.define('Categories', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    slug: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     sub: {
         type: Sequelize.INTEGER,
         allowNull: false
     }
 })
-
-/* Categories.sync({force: false}).then(console.log("Tabela Criada com sucesso!")) */
+/* 
+Categories.sync({force: true}).then(console.log("Tabela Criada com sucesso!")) */
 
 module.exports = Categories;

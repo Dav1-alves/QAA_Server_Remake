@@ -16,6 +16,10 @@ const subCategories = connection.define('subCategories', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    slug: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     idCat: {
         type: Sequelize.INTEGER,
         allowNull: false,

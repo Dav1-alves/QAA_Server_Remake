@@ -3,6 +3,7 @@ const app = express()
 const connection = require("../Database/database")
 const Categories = require('../Categories/Categories')
 const subCategories = require('../Categories/subCategories/subCategories')
+const slug = require('slug')
 
 app.get('/New', async (req, res) => {
     const categories = await Categories.findAll({
@@ -27,6 +28,7 @@ app.post('/Save', async (req, res) => {
         subCategories.create({
             name,
             desc,
+            slug: slug(name),
             idCat: subCategoriesList
         })
 
@@ -37,6 +39,7 @@ app.post('/Save', async (req, res) => {
         Categories.create({
             name,
             desc,
+            slug: slug(name),
             sub: 0
         })
 
