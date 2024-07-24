@@ -1,0 +1,16 @@
+<%- include ('../partials/header.ejs') %>
+
+    <body>
+        <form action="/user/save" method="POST">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" class="border" required>
+            <label for="email">E-mail</label>
+            <input type="text" name="email" id="email" class="border" required>
+            <label for="password">Password</label>
+            <input type="text" name="password" id="password" class="border" required>
+
+            <button type="submit">Cadastrar</button>
+            <button type="reset">Cancelar</button>
+        </form>
+    </body>
+    <%- include ('../partials/footer.ejs') %>

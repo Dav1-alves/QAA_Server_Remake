@@ -1,0 +1,15 @@
+<%- include ('../partials/header.ejs') %>
+
+    <body>
+        <form action="/user/authenticate" method="POST">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" class="border" required>
+            <label for="password">Password</label>
+            <input type="text" name="password" id="password" class="border" required>
+            <h3>Não tenho conta, <a href="/User/New">Criar agora.</a></h3>
+
+            <button type="submit">Cadastrar</button>
+            <button type="reset">Cancelar</button>
+        </form>
+    </body>
+    <%- include ('../partials/footer.ejs') %>

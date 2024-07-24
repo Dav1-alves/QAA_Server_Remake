@@ -5,6 +5,14 @@ const path = require('path');
 const connection = require("./Database/database")
 const CategoriesDB = require('./Categories/Categories')
 const subCategoriesDB = require('./Categories/subCategories/subCategories')
+const session = require('express-session')
+
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'segurança :)',
+  resave: false,
+  saveUninitialized: true
+}))
 
 connection.authenticate().then(() => { console.log("Conexão efetuada com sucesso!") }).catch((ErrorMsg) => { console.log("Não foi possivel iniciar uma conexão ao banco de dados! Msg de erro: ".ErrorMsg) })
 

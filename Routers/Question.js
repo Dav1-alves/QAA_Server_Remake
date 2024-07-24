@@ -13,7 +13,6 @@ app.get('/New', async (req, res) => {
             limit: 10,
         }], limit: 4, order: connection.random()
     })
-    console.log(TINY_KEY)
     
     res.render('./Question/new', { categories, TINY_KEY: TINY_KEY })
 })

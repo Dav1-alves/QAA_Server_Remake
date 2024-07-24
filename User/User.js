@@ -11,16 +11,20 @@ const User = connection.define('user', {
         type: Sequelize.STRING,
         allowNull: false
     },
+    email: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
     password: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    useradm: {
+    status: {
         type: Sequelize.INTEGER,
         allowNull: false
     }
 })
-
-/* User.sync({force: false}).then(console.log("Tabela Criada com sucesso!")) */
+/* 
+User.sync({force: true}).then(console.log("Tabela Criada com sucesso!")) */
 
 module.exports = User;
