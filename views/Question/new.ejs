@@ -25,7 +25,7 @@
                 <label for="subCategories">Subcategoria?</label>
                 <input type="checkbox" name="subCategoriesCheck" id="subCategoriesCheck">
                 <label for="subcategories">Subcategoria</label>
-                <select name="subcategories" id="subcategories" class="border" disabled>
+                <select name="categories" id="categories" class="border" disabled>
                     <option value="1">Teste</option>
                     <option value="2">Teste</option>
                 </select>
@@ -35,16 +35,15 @@
 
             <script defer>
                 const checkbox = document.querySelector("input[name=subCategoriesCheck]");
-                const Catselect = document.querySelector("select[name=categories]");
-                const Subselect = document.querySelector("select[name=subcategories]");
+                const select = document.querySelectorAll("select[name=categories]");
 
                 checkbox.addEventListener('change', function () {
                     if (this.checked) {
-                        Subselect.removeAttribute('disabled', 'disabled');
-                        Catselect.setAttribute('disabled', 'disabled');
+                        select[1].removeAttribute('disabled', 'disabled');
+                        select[0].setAttribute('disabled', 'disabled');
                     } else {
-                        Catselect.removeAttribute('disabled', 'disabled');
-                        Subselect.setAttribute('disabled', 'disabled');
+                        select[0].removeAttribute('disabled', 'disabled');
+                        select[1].setAttribute('disabled', 'disabled');
                     }
                 });
             </script>
