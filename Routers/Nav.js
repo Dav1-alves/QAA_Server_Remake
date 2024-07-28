@@ -25,7 +25,7 @@ app.get('/', async (req, res) => {
         console.error('Error fetching questions:', error);
         res.status(500).send(error);
     });
-
+    
 })
 
 app.get('/profile', (req, res) => {
