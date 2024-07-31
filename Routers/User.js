@@ -3,6 +3,7 @@ const app = express()
 const User = require('../User/User')
 const connection = require("../Database/database")
 const Categories = require('../Categories/Categories')
+const subCategories = require('../Categories/subCategories/subCategories')
 const bcrypt = require('bcrypt');
 const { where } = require('sequelize')
 
@@ -33,6 +34,11 @@ app.post('/Save', async (req, res) => {
 
 app.get('/Login', (req, res) => {
     res.render('User/Login')
+})
+
+
+app.get('/QRcode', async (req, res) => {
+    res.render('User/QRcodeMob', { user: req.session.user })
 })
 
 app.post('/Authenticate', (req, res) => {

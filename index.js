@@ -17,7 +17,7 @@ app.use(session({
 connection.authenticate().then(() => { console.log("Conexão efetuada com sucesso!") }).catch((ErrorMsg) => { console.log("Não foi possivel iniciar uma conexão ao banco de dados! Msg de erro: ".ErrorMsg) })
 
 
-app.use(express.static('src'));
+app.use(express.static(path.join(__dirname, "src")));
 app.set('view engine', 'ejs');
 app.use(express.json({limit: '10000mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}));

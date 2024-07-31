@@ -39,6 +39,10 @@ app.post('/Save', (req, res) => {
     if (req.session.user) {
         const form = req.body
 
+        if (form.name == "" && form.desc == "") {
+            return res.redirect('/Question/New')
+        }
+
         Question.create({
             name: form.name,
             sub: form.subCategoriesCheck ? 1 : 0,

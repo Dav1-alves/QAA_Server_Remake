@@ -1,0 +1,54 @@
+<%- include ('../partials/header.ejs') %>
+
+  <body>
+
+
+    <div id="you-qr-code"></div>
+
+    <div class="flex justify-center">
+        <div id="my-qr-reader" class="w-96 h-96">
+
+        </div>
+    </div>
+
+
+    <err></err>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script>
+        function DOMReady(fn) {
+            const condition = document.readyState === 'complete' || document.readyState === 'interactive'
+            if (condition) {
+                setTimeout(fn, 1)
+            }
+            
+            if (!condition) {
+                document.addEventListener('DOMContentLoaded', fn)
+            }
+        }
+
+        DOMReady(function() {
+            var myqr = document.getElementById('you-qr-code')
+            var lastResult, countResult = 0;
+
+            function onScanSuccess(decodeText, decodeResult) {
+                if (decodeText !== lastResult) {
+                    countResult++;
+                    lastResult = decodeText;
+
+                    alert(decodeText, decodeResult)
+
+                    myqr.innerHTML = `${countResult} : ${decodeText}`
+                }
+            }
+            
+            var htmlScanner = new Html5QrcodeScanner(
+                "my-qr-reader", {fps:10, qrbox:250}
+            )
+
+            htmlScanner.render(onScanSuccess)
+        })
+    </script>
+
+  </body>
+  <%- include ('../partials/footer.ejs') %>

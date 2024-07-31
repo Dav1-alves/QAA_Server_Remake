@@ -1,15 +1,38 @@
 <%- include ('../partials/header.ejs') %>
 
     <body>
-        <form action="/user/authenticate" method="POST">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" class="border" required>
-            <label for="password">Password</label>
-            <input type="text" name="password" id="password" class="border" required>
-            <h3>Não tenho conta, <a href="/User/New">Criar agora.</a></h3>
+        <div class="flex items-center justify-center w-screen h-screen flex-col rounded-lg">
+            <h1 class="text-3xl p-5">Login</h1>
+            <form action="/user/authenticate" method="POST" class="w-[396px] h-[450px] flex flex-col gap-5 rounded-lg">
 
-            <button type="submit">Cadastrar</button>
-            <button type="reset">Cancelar</button>
-        </form>
+                <div class="flex flex-col gap-10 border p-5 rounded-lg">
+                    <div class="flex flex-col gap-3 rounded-lg">
+                        <label for="username" class="flex justify-between">Username<a href="/Forgot/Password"
+                                class="text-blue-600">Forgot username?</a></label>
+                        <input type="text" name="username" id="username" class="border w-full border p-1.5 rounded-lg" required>
+                        <label for="password" class="flex justify-between">Password<a href="/Forgot/Password"
+                                class="text-blue-600">Forgot password?</a></label>
+                        <input type="password" name="password" id="password" class="border w-full border p-1.5 rounded-lg" required>
+                    </div>
+    
+                    <div class="flex gap-2">
+                        <button type="submit" class="w-3/4 border p-1.5 bg-lime-600 text-white hover:bg-lime-700 rounded-lg">Cadastrar</button>
+                        <button type="reset" class="w-1/4 border p-1.5 rounded-lg">Cancelar</button>
+                    </div>
+                </div>
+
+                <div class="flex items-center flex-col border p-5 rounded-lg">
+                    <div>
+                        <a href="" class="text-blue-600 rounded-lg">Entrar com QRcode</a>
+                    </div>
+                    <div>
+                        Não tenho conta, <a href="/User/New" class="text-blue-600 rounded-lg">Criar agora.</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        </script>
     </body>
     <%- include ('../partials/footer.ejs') %>
