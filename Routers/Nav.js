@@ -20,7 +20,7 @@ app.get('/', async (req, res) => {
             { model: subCategories }
         ]
     }).then(questions => {
-        res.render('./Nav/index', { categories, questions })
+        res.render('./Nav/index', { categories, questions, user: req.session.user })
     }).catch(error => {
         console.error('Error fetching questions:', error);
         res.status(500).send(error);

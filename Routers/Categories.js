@@ -12,7 +12,7 @@ app.get('/New', async (req, res) => {
             limit: 10,
         }], limit: 4, order: connection.random()
     })
-    res.render('Categories/categories', { categories })
+    res.render('Categories/categories', { categories, user: req.session.user })
 })
 
 app.get('/Search', async (req, res) => {

@@ -16,7 +16,7 @@ app.get('/New', async (req, res) => {
         }], limit: 4, order: connection.random()
     })
 
-    res.render('./Question/new', { categories, TINY_KEY: TINY_KEY })
+    res.render('./Question/new', { categories, TINY_KEY: TINY_KEY, user: req.session.user })
 })
 
 app.get('/Verify', (req, res) => {
@@ -48,9 +48,6 @@ app.post('/Save', (req, res) => {
             conclusion: 0,
             idUser: req.session.user.id
         })
-
-        console.log(form)
-        console.log(form.subCategoriesCheck != undefined ? form.categories : form.categories, form.subCategoriesCheck != undefined ? 1 : 0)
 
         return res.redirect('/Browser')
     }

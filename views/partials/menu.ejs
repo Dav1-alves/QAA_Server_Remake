@@ -1,47 +1,74 @@
-<div class="w-full px-12 bg-[#0000004c] backdrop-blur-[5px] text-white flex items-center justify-between ">
+<div class="w-full px-12 bg-[#000000] backdrop-blur-[5px] text-white flex items-center justify-between">
 
     <div class="flex gap-5 items-center">
         <a href="/" class="text-xl">QAA</a>
-        <div class="dropdown flex gap-5 text-neutral-500">
-            <% categories.forEach((categories) => { %>
-                <div class="menu p-4">
+        <div class="flex gap-5 text-neutral-500">
+            <% categories.forEach((categories)=> { %>
+                <div class="dropdown p-4">
                     <div class="flex items-center gap-1 cursor-pointer">
-                        <button><%= categories.name %></button>
+                        <button>
+                            <%= categories.name %>
+                        </button>
                         <i class='bx bx-chevron-down'></i>
                     </div>
-                    <div class="bg-white absolute w-[25%] top-14 max-w-96 max-h-[520px] hidden group">
+                    <div class="bg-white absolute w-[25%] top-14 max-w-96 hidden group shadow-lg">
                         <nav>
                             <ul>
-                                <% categories.subCategories.forEach((subCategories) => { %>
+                                <% categories.subCategories.forEach((subCategories)=> { %>
                                     <a href="https://youtube.com">
-                                        <li class="w-full py-3.5 px-7 hover:bg-blue-600 hover:text-white"><%= subCategories.name %></li>
+                                        <li class="w-full py-3.5 px-7 hover:bg-blue-600 hover:text-white">
+                                            <%= subCategories.name %>
+                                        </li>
                                     </a>
-                                <% }) %>
+                                    <% }) %>
                             </ul>
                         </nav>
                     </div>
                 </div>
-            <% }) %>
+                <% }) %>
         </div>
     </div>
 
-    <label for="search"
-        class="flex gap-3 items-center border-[1px] py-2 px-4 border-neutral-700 rounded-lg cursor-text	">
-        <i class='bx bx-search-alt text-neutral-700 border-r-2 w-8 border-neutral-700'></i>
-        <input type="text" id="search" autocomplete="off" placeholder="Type / to search"
-            class="border-0 bg-transparent outline-0 text-sm">
-    </label>
+    <div class="flex items-center gap-5">
 
-    <script>
-        const dropdowns = document.querySelectorAll('.dropdown div.menu');
-        for (let index = 0; index < dropdowns.length; index++) {
-            dropdowns[index].addEventListener('mouseover', event => {
-                dropdowns[index].querySelector('.group').classList.remove('hidden');
-            });
-            dropdowns[index].addEventListener('mouseout', event => {
-                dropdowns[index].querySelector('.group').classList.add('hidden');
-            });
-        }
-    </script>
+        <label for="search"
+            class="flex gap-3 items-center border-[1px] py-2 px-4 border-neutral-700 rounded-lg cursor-text	">
+            <i class='bx bx-search-alt text-neutral-700 border-r-2 w-8 border-neutral-700'></i>
+            <input type="text" id="search" autocomplete="off" placeholder="Type / to search"
+                class="border-0 bg-transparent outline-0 text-sm">
+        </label>
+
+        <% if(user !=undefined) { %>
+            <div class="dropdown flex">
+                <div class="w-[56px] h-[56px] flex items-center">
+                    <div
+                        class="rounded-full w-[40px] h-[40px] bg-[url(https://yt3.ggpht.com/Bfy85TE68rrQ4fQL1dTXEwqwCgbpmYmAEzM2nNNKzwOBGbXITKs_gRt1dEX1WTZAoXYbuANDAQ=s68-c-k-c0x00ffffff-no-rj)] bg-center bg-cover">
+                    </div>
+                </div>
+
+                <div class="group bg-white hidden absolute top-14 right-14 text-neutral-700">
+                    <nav>
+                        <ul>
+                            <a href="">
+                                <li class="p-4">Profile</li>
+                            </a>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <% } %>
+
+                <% if(user==undefined) { %>
+                    <a href="/User/Login">
+                        <button class="py-1.5 w-28 bg-blue-600 rounded transition hover:bg-blue-700">Login</button>
+                    </a>
+
+                    <a href="/User/New">
+                        <button class="py-1.5 w-28 border-[1px] rounded border-neutral-700">Cadastro</button>
+                    </a>
+                    <% } %>
+    </div>
+
+    <script src="dropdown.js"></script>
 
 </div>

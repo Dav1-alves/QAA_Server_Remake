@@ -35,7 +35,7 @@ const Question = connection.define('Question', {
         }
     },
     desc: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT('long'),
         allowNull: false
     },
     conclusion: {

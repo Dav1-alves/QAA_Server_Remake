@@ -17,9 +17,9 @@ app.use(session({
 connection.authenticate().then(() => { console.log("Conexão efetuada com sucesso!") }).catch((ErrorMsg) => { console.log("Não foi possivel iniciar uma conexão ao banco de dados! Msg de erro: ".ErrorMsg) })
 
 
-
+app.use(express.static('src'));
 app.set('view engine', 'ejs');
-app.use(express.json({limit: '50mb'}));
+app.use(express.json({limit: '10000mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}));
 
 app.get('/', async (req, res) => {
@@ -29,7 +29,7 @@ app.get('/', async (req, res) => {
             limit: 10,
         }], limit: 4, order: connection.random()
     })
-    res.render('./index', { categories })
+    res.render('./index', { categories, user: req.session.user })
 })
 
 const Nav = require('./Routers/Nav')

@@ -1,7 +1,7 @@
 <%- include ('../partials/header.ejs') %>
 
   <body>
-    <%- include ('../partials/menuout.ejs') %>
+    <%- include ('../partials/menu.ejs') %>
 
       <section class="grid grid-cols-3 auto-rows-[298px]">
         <div class="bg-neutral-100 border-2 rounded-xl p-2 m-4">
@@ -12,21 +12,40 @@
           <h3 class="text-xl text-gray-600">2</h3>
           <p class="font-bold text-2xl">B</p>
         </div>
-        <div class="bg-neutral-100 border-2 rounded-xl p-2 m-4 row-span-3">
+        <div class="bg-neutral-100 border-2 rounded-xl p-5 m-4 row-span-3">
 
-          <% questions.forEach(question => { %>
-            <div class="w-full p-3 rounded-xl bg-neutral-200 mb-2">
-              <h3 class="text-xl text-gray-600 truncate"><%= question.name %></h3>
-              <h4 class="font-bold py-2 text-gray-400"><% if (question.subCategory == null) { %>
-                <%= question.Category.name %>
-              <% } else { %>
-                <%= question.subCategory.name %>
-              <% } %></h4>
+          <div class="flex mb-3">
+            <div class="<% if(user == undefined) { %> dropdown <%}%>">
+              <a href="/Question/New"><button class="py-2 px-5 border rounded transition danger">Nova pergunta</button></a>
+              
+                <div class="bg-white p-2 absolute underline text-blue-900 hidden group">
+                  <a href="/User/Login">Fazer login</a>
+                </div>
             </div>
-          <% }) %>
+          </div>
+
+          <% if (questions == undefined) { %>
+            <div class="flex items-center justify-center h-full text-neutral-300">Sem dados</div>
+            <% } %>
+              <% questions.forEach(question=> { %>
+                <a href="/Question/<%= question.id %> %>">
+                  <div class="w-full p-3 rounded-xl bg-neutral-200 mb-2"> 
+                    <h3 class="text-xl text-gray-600 truncate">
+                      <%= question.name %>
+                    </h3>
+                    <h4 class="font-bold py-2 text-gray-400">
+                      <% if (question.subCategory==null) { %>
+                        <%= question.Category.name %>
+                          <% } else { %>
+                            <%= question.subCategory.name %>
+                              <% } %>
+                    </h4>
+                  </div>
+                </a>
+                <% }) %>
 
         </div>
-        <div class="bg-neutral-100 border-2 rounded-xl p-2 m-4 col-span-2">
+        <div class="bg-gradient-to-r from-emerald-400 to-emerald-300	border-2 rounded-xl p-2 m-4 col-span-2">
           <h3 class="text-xl text-gray-600">4</h3>
           <p class="font-bold text-2xl">B</p>
         </div>
@@ -39,6 +58,9 @@
           <p class="font-bold text-2xl">B</p>
         </div>
       </section>
+
+
+      <script src="dropdown.js"></script>
 
   </body>
   <%- include ('../partials/footer.ejs') %>
