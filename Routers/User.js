@@ -10,11 +10,6 @@ const { where } = require('sequelize');
 const session = require('express-session');
 require('dotenv').config();
 
-app.get('/verify', (req, res) => {
-    console.log(req.session.user);
-    res.send('Verificação de sessão');
-});
-
 app.get('/New', (req, res) => {
     res.render('User/New');
 });

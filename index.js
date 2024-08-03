@@ -20,7 +20,7 @@ app.use(session({
   saveUninitialized: true
 }))
 
-connection.authenticate().then(() => { console.log("Conexão efetuada com sucesso!") }).catch((ErrorMsg) => { console.log("Não foi possivel iniciar uma conexão ao banco de dados! Msg de erro: ".ErrorMsg) })
+connection.authenticate()
 
 
 app.use(express.static(path.join(__dirname, "src")));
