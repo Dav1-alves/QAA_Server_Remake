@@ -1,17 +1,201 @@
-<div class="w-full px-12 bg-[#000000] backdrop-blur-[5px] text-white flex items-center justify-between">
+<div class="relative h-[68px] w-full">
+    <header class="fixed top-0 left-0 w-full">
+        <div
+            class="flex justify-between backgroundBG w-full flex-col overflow-hidden min-[0px]:py-4 xl:py-1.5 px-52 max-xl:p-4 xl:mx-auto xl:flex-row xl:items-center">
+            <div class="flex items-center">
+                <a href="/" class="flex items-center whitespace-nowrap text-2xl font-black">
+                    <span class="mr-2 text-4xl text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em"
+                            preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M6.925 16.875Q5.2 16.225 4.1 14.713Q3 13.2 3 11.25q0-1.975.938-3.513Q4.875 6.2 6 5.15q1.125-1.05 2.062-1.6L9 3v2.475q0 .625.45 1.062q.45.438 1.075.438q.35 0 .65-.15q.3-.15.5-.425L12 6q.95.55 1.625 1.35t1.025 1.8l-1.675 1.675q-.05-.6-.287-1.175q-.238-.575-.638-1.05q-.35.2-.738.287q-.387.088-.787.088q-1.1 0-1.987-.612Q7.65 7.75 7.25 6.725q-.95.925-1.6 2.062Q5 9.925 5 11.25q0 .775.275 1.462q.275.688.75 1.213q.05-.5.287-.938q.238-.437.588-.787L9 10.1l2.15 2.1q.05.05.1.125t.1.125l-1.425 1.425q-.05-.075-.087-.125q-.038-.05-.088-.1L9 12.925l-.7.7q-.125.125-.212.287q-.088.163-.088.363q0 .3.175.537q.175.238.45.363ZM9 10.1Zm0 0ZM7.4 22L6 20.6L19.6 7L21 8.4L17.4 12H21v2h-5.6l-.5.5l1.5 1.5H21v2h-2.6l2.1 2.1l-1.4 1.4l-2.1-2.1V22h-2v-4.6l-1.5-1.5l-.5.5V22h-2v-3.6Z" />
+                        </svg>
+                    </span>
+                    <span class="text-black background">Q&A</span>
+                </a>
+            </div>
+            <input type="checkbox" class="peer hidden" id="navbar-open" />
+            <label class="absolute top-5 right-7 cursor-pointer xl:hidden" for="navbar-open">
+                <span class="sr-only">Toggle Navigation</span>
+                <i class='bx bx-menu-alt-right text-2xl w-6 h-6 background'></i>
+            </label>
+            <nav aria-label="Header Navigation"
+                class="h-full peer-checked:max-md:mt-8 peer-checked:max-h-full flex max-h-0 flex-col items-center justify-between overflow-hidden transition-all xl:max-h-full xl:flex-row xl:items-start">
+                <ul class="flex items-center max-md:flex-col max-md:w-full gap-6">
+                    <% categories.forEach((categories)=> { %>
+                        <li
+                            class="text-gray-600 background hover:text-blue-600 flex flex-col justify-between md:items-center w-full py-4 h-full dropdown">
+                            <a href="#" class="truncate w-full flex flex-row items-center">
+                                <%= categories.name %>
+                                    <i class='bx bx-chevron-down'></i>
+                            </a>
+                            <div class="absolute max-md:relative top-4 md:top-24 xl:top-14 text-black bg-slate-100 rounded group hidden">
+                                <ul>
+                                    <% categories.subCategories.forEach((subCategories)=> { %>
+                                        <li class="py-3 px-6 md:w-56 w-full hover:bg-blue-600 hover:text-white">
+                                            <a href="">
+                                                <%= subCategories.name %>
+                                            </a>
+                                        </li>
+                                        <% }) %>
+                                </ul>
+                            </div>
+                        </li>
+                        <% }) %>
+                            <li>
+                                <% if(user==undefined) { %>
+                                    <a href="/User/Login">
+                                        <div class="text-gray-600 xl:mr-12 hover:text-blue-600">
+                                            <button
+                                                class="py-1.5 w-36 bg-blue-600 rounded transition hover:bg-blue-700 text-white">Login
+                                            </button>
+                                        </div>
+                                    </a>
+                                    <% } %>
+                                        <% if(user!=undefined) { %>
+                                            <div
+                                                class="rounded-full cursor-pointer w-[40px] h-[40px] bg-[url(https://yt3.ggpht.com/Bfy85TE68rrQ4fQL1dTXEwqwCgbpmYmAEzM2nNNKzwOBGbXITKs_gRt1dEX1WTZAoXYbuANDAQ=s68-c-k-c0x00ffffff-no-rj)] bg-center bg-cover">
+                                            </div>
+                                            <% } %>
+                            </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+</div>
 
-    <div class="flex gap-5 items-center ">
-        <a href="/" class="text-xl">QAA</a>
-        <div class="flex gap-5 text-neutral-500">
+<style>
+    body {
+        background: white;
+    }
+</style>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const background = document.querySelectorAll('.background');
+        const backgroundBG = document.querySelectorAll('.backgroundBG');
+
+        const bgColor = window.getComputedStyle(document.querySelector('body')).backgroundColor;
+
+        if (bgColor === 'rgb(0, 0, 0)') {
+            for (let index = 0; index < background.length; index++) {
+                background[index].classList.remove('text-black');
+                background[index].classList.add('text-white');
+            }
+
+            for (let index = 0; index < backgroundBG.length; index++) {
+                backgroundBG[index].classList.remove('bg-white');
+                backgroundBG[index].classList.add('bg-black');
+            }
+        } else if (bgColor === 'rgb(255, 255, 255)') {
+            for (let index = 0; index < background.length; index++) {
+                background[index].classList.remove('text-white');
+                background[index].classList.add('text-black');
+            }
+
+            for (let index = 0; index < backgroundBG.length; index++) {
+                backgroundBG[index].classList.remove('bg-black');
+                backgroundBG[index].classList.add('bg-white');
+            }
+        }
+    });
+
+
+
+</script>
+
+<!-- 
+    <div class="w-full px-12 py-2.5 bg-[#000000] backdrop-blur-[5px] text-white flex items-center justify-between">
+
+        <div class="flex gap-5 items-center">
+            <button class="text-xl xl:hidden flex items-center" onclick="openMenu()">
+                <i class='bx bx-menu-alt-left'></i>
+            </button>
+            <a href="/" class="text-xl hidden xl:block">QAA</a>
+            <div class="hidden xl:flex gap-5 text-neutral-500">
+                <% categories.forEach((categories)=> { %>
+                    <div class="dropdown">
+                        <div class="flex items-center gap-1 cursor-pointer">
+                            <button class="truncate w-20">
+                                <%= categories.name %>
+                            </button>
+                            <i class='bx bx-chevron-down'></i>
+                        </div>
+                        <div class="bg-white absolute w-[25%] top-14 max-w-96 hidden group shadow-lg">
+                            <nav>
+                                <ul>
+                                    <% categories.subCategories.forEach((subCategories)=> { %>
+                                        <a href="https://youtube.com">
+                                            <li class="w-full py-3.5 px-7 hover:bg-blue-600 hover:text-white">
+                                                <%= subCategories.name %>
+                                            </li>
+                                        </a>
+                                        <% }) %>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+
+        </div>
+
+        <div class="flex items-center gap-5">
+
+            <label for="search"
+                class="flex gap-3 items-center border-[1px] py-2 px-4 border-neutral-700 rounded-lg cursor-text	">
+                <i class='bx bx-search-alt text-neutral-700 border-r-2 w-8 border-neutral-700'></i>
+                <input type="text" id="search" autocomplete="off" placeholder="Type / to search"
+                    class="border-0 bg-transparent outline-0 text-sm">
+            </label>
+
+            <% if(user !=undefined) { %>
+                <div class="dropdown flex">
+                    <div class="w-[56px] h-[56px] flex items-center">
+                        <div
+                            class="rounded-full w-[40px] h-[40px] bg-[url(https://yt3.ggpht.com/Bfy85TE68rrQ4fQL1dTXEwqwCgbpmYmAEzM2nNNKzwOBGbXITKs_gRt1dEX1WTZAoXYbuANDAQ=s68-c-k-c0x00ffffff-no-rj)] bg-center bg-cover">
+                        </div>
+                    </div>
+
+                    <div class="group bg-white hidden absolute top-14 right-14 text-neutral-700">
+                        <nav>
+                            <ul>
+                                <a href="">
+                                    <li class="p-4">Profile</li>
+                                </a>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <% } %>
+
+                    <% if(user==undefined) { %>
+                        <div class=" xl:flex flex-nowrap	gap-2 hidden">
+                            <a href="/User/Login">
+                                <button class="py-1.5 w-28 bg-blue-600 rounded transition hover:bg-blue-700">Login</button>
+                            </a>
+
+                            <a href="/User/New">
+                                <button class="py-1.5 w-28 border-[1px] rounded border-neutral-700">Cadastro</button>
+                            </a>
+                        </div>
+                        <% } %>
+        </div>
+
+    </div>
+
+    <div class="xl:hidden fixed w-screen h-screen bg-black flex items-center justify-center hidden hamburguer">
+        <div class="flex flex-col xl:hidden gap-20 text-neutral-500 justify-center items-center">
             <% categories.forEach((categories)=> { %>
-                <div class="dropdown p-4">
+                <div class="dropdown">
                     <div class="flex items-center gap-1 cursor-pointer">
-                        <button>
+                        <button class="truncate w-20">
                             <%= categories.name %>
                         </button>
                         <i class='bx bx-chevron-down'></i>
                     </div>
-                    <div class="bg-white absolute w-[25%] top-14 max-w-96 hidden group shadow-lg">
+                    <div class="bg-white absolute w-[50%] right-[25%] max-w-96 hidden group shadow-lg">
                         <nav>
                             <ul>
                                 <% categories.subCategories.forEach((subCategories)=> { %>
@@ -26,48 +210,22 @@
                     </div>
                 </div>
                 <% }) %>
+
+                    <% if(user==undefined) { %>
+                        <div class="flex flex-col gap-5">
+                            <a href="/User/Login">
+                                <button
+                                    class="py-1.5 w-28 bg-blue-600 rounded transition hover:bg-blue-700 text-white">Login</button>
+                            </a>
+
+                            <a href="/User/New">
+                                <button class="py-1.5 w-28 border-[1px] rounded border-neutral-700">Cadastro</button>
+                            </a>
+                        </div>
+                        <% } %>
         </div>
     </div>
+ -->
 
-    <div class="flex items-center gap-5">
 
-        <label for="search"
-            class="flex gap-3 items-center border-[1px] py-2 px-4 border-neutral-700 rounded-lg cursor-text	">
-            <i class='bx bx-search-alt text-neutral-700 border-r-2 w-8 border-neutral-700'></i>
-            <input type="text" id="search" autocomplete="off" placeholder="Type / to search"
-                class="border-0 bg-transparent outline-0 text-sm">
-        </label>
-
-        <% if(user !=undefined) { %>
-            <div class="dropdown flex">
-                <div class="w-[56px] h-[56px] flex items-center">
-                    <div
-                        class="rounded-full w-[40px] h-[40px] bg-[url(https://yt3.ggpht.com/Bfy85TE68rrQ4fQL1dTXEwqwCgbpmYmAEzM2nNNKzwOBGbXITKs_gRt1dEX1WTZAoXYbuANDAQ=s68-c-k-c0x00ffffff-no-rj)] bg-center bg-cover">
-                    </div>
-                </div>
-
-                <div class="group bg-white hidden absolute top-14 right-14 text-neutral-700">
-                    <nav>
-                        <ul>
-                            <a href="">
-                                <li class="p-4">Profile</li>
-                            </a>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <% } %>
-
-                <% if(user==undefined) { %>
-                    <a href="/User/Login">
-                        <button class="py-1.5 w-28 bg-blue-600 rounded transition hover:bg-blue-700">Login</button>
-                    </a>
-
-                    <a href="/User/New">
-                        <button class="py-1.5 w-28 border-[1px] rounded border-neutral-700">Cadastro</button>
-                    </a>
-                    <% } %>
-    </div>
-    
-</div>
 <script src="/dropdown.js"></script>

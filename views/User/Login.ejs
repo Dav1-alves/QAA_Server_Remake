@@ -1,38 +1,49 @@
 <%- include ('../partials/header.ejs') %>
 
     <body>
-        <div class="flex items-center justify-center w-screen h-screen flex-col rounded-lg">
-            <h1 class="text-3xl p-5">Login</h1>
-            <form action="/user/authenticate" method="POST" class="w-[396px] h-[450px] flex flex-col gap-5 rounded-lg">
+        <div class="flex items-center justify-center w-screen h-screen">
 
-                <div class="flex flex-col gap-10 border p-5 rounded-lg">
-                    <div class="flex flex-col gap-3 rounded-lg">
-                        <label for="username" class="flex justify-between">Username<a href="/Forgot/Password"
-                                class="text-blue-600">Forgot username?</a></label>
-                        <input type="text" name="username" id="username" class="border w-full border p-1.5 rounded-lg" required>
-                        <label for="password" class="flex justify-between">Password<a href="/Forgot/Password"
-                                class="text-blue-600">Forgot password?</a></label>
-                        <input type="password" name="password" id="password" class="border w-full border p-1.5 rounded-lg" required>
-                    </div>
-    
-                    <div class="flex gap-2">
-                        <button type="submit" class="w-3/4 border p-1.5 bg-lime-600 text-white hover:bg-lime-700 rounded-lg">Cadastrar</button>
-                        <button type="reset" class="w-1/4 border p-1.5 rounded-lg">Cancelar</button>
-                    </div>
-                </div>
+            <div class="w-full flex justify-evenly">
+                
+                <form action="/user/authenticate" method="POST" class=" w-96 flex flex-col gap-5 rounded-lg">
 
-                <div class="flex items-center flex-col border p-5 rounded-lg">
-                    <div>
-                        <a href="" class="text-blue-600 rounded-lg">Entrar com QRcode</a>
-                    </div>
-                    <div>
-                        Não tenho conta, <a href="/User/New" class="text-blue-600 rounded-lg">Criar agora.</a>
-                    </div>
-                </div>
+                    <div class="flex flex-col gap-10 border p-5 rounded-lg">
+                        <div class="flex flex-col gap-3 rounded-lg">
+                            <label for="username" class="flex justify-between" title="Obrigatório"><div>Username <span class="text-red-500">*</span></div><a href="/Forgot/Password"
+                                    class="text-blue-600">Forgot username?</a></label>
+                            <div class="flex items-center gap-2">
+                                <input type="text" name="username" id="username" placeholder="Username"
+                                class="border w-full border p-1.5 rounded-lg" required>
+                                <button class="border p-2 h-full text-sm bg-gray-200 rounded-lg" title="Receba e-mail com autorização de login.">MagicLogin</button>
+                            </div>
+                            <label for="password" class="flex justify-between" title="Faça login rápido com MagicLogin.">Password<a href="/Forgot/Password"
+                                    class="text-blue-600">Forgot password?</a></label>
+                            <input type="password" name="password" id="password"
+                                class="border w-full border p-1.5 rounded-lg" placeholder="Login com senha.">
+                        </div>
 
-            </form>
+                        <div class="flex gap-2">
+                            <button type="submit"
+                                class="w-3/4 border p-1.5 bg-lime-600 text-white hover:bg-lime-700 rounded-lg">Cadastrar</button>
+                            <button type="reset" class="w-1/4 border p-1.5 rounded-lg">Cancelar</button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center flex-col border p-5 rounded-lg">
+                        <div>
+                            <a href="" class="text-blue-600 rounded-lg">Entrar com QRcode</a>
+                        </div>
+                        <div>
+                            Não tenho conta, <a href="/User/New" class="text-blue-600 rounded-lg">Criar agora.</a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
         </div>
+        
 
-        </script>
+        <script src="/dropdown.js"></script>
     </body>
     <%- include ('../partials/footer.ejs') %>

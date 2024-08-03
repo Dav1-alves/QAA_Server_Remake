@@ -10,7 +10,12 @@
     <script>
 
         tinymce.init({
-            selector: '#desc'
+            selector: '#desc_RES',
+            setup: function (editor) {
+                editor.on('keyup', function () {
+                    updateTextarea();
+                });
+            }
         });
     </script>
 
@@ -18,16 +23,16 @@
         <%- include ('../partials/menu.ejs') %>
 
             <form action="/Question/Save" method="post" class="hidden">
-                <input type="text" id="name">
-                <input type="text" id="category">
-                <input type="checkbox" name="checkbox">
-                <textarea>
+                <input type="text" id="name" name="name">
+                <input type="text" id="category" name="category">
+                <input type="checkbox" id="checkbox" name="checkbox">
+                <textarea name="desc" id="desc" required>
 
                 </textarea>
             </form>
 
             <div class="w-full h-full flex items-center justify-center">
-                <div class="w-[570px] h-[500px] border rounded-lg p-5 box">
+                <div class="w-[570px] h-[500px] border rounded-lg p-5 card">
                     <div class="flex justify-center gap-4" id="stepcircle">
                         <div class="flex items-center justify-center flex-col">
                             <div class="w-6 h-6 rounded-full flex justify-center items-center border border-gray-300">
@@ -44,7 +49,7 @@
                     <div id="steps" class="h-full">
                         <div class="flex items-center justify-center flex-col gap-6" style="height: calc(100% - 74px);">
                             <div class="text-3xl">
-                                Criar nova pergunta?
+                                Criar nova pergunta
                             </div>
                             <div class="w-3/5">
                                 <button
@@ -55,31 +60,29 @@
 
                         <div class="flex flex-col gap-4 hidden">
                             <div class="flex flex-col gap-3">
-                                <label for="name_RES" class="text-lg">* Tema da Pergunta:</label>
+                                <label for="name_RES" class="text-lg" title="Obrigatório"><span
+                                        class="text-red-500">*</span> Tema da Pergunta:</label>
                                 <input type="text" class="border w-full p-2 rounded-lg" id="name_RES"
-                                    onchange="FormLoading(this)" placeholder="Tema da sua pergunta">
+                                    onchange="nameUpdate(this)" placeholder="Tema da sua pergunta" autocomplete="off" required>
 
                                 <div class="flex">
-                                    <input type="checkbox" id="checkbox_RES" class="mr-2">
-                                    <label for="checkbox_RES" class="text-lg">Sua pergunta é nichada? *</label>
+                                    <input type="checkbox" id="checkedInput" class="mr-2" onclick="verifyCheckbox()">
+                                    <label for="checkedInput" class="text-lg">Sua pergunta é nichada? <span
+                                            class="text-red-500" title="Obrigatório">*</span></label>
                                 </div>
                                 <div>
-                                    <label for="category_RES">Categoria *</label>
+                                    <label for="categoryInput">Categoria <span class="text-red-500"
+                                            title="Obrigatório">*</span></label>
                                     <div class="flex flex-col dropdown">
                                         <div>
-                                            <input type="text" id="category"_RES class="border w-full p-2 rounded-lg" placeholder="Categoria/Subcategoria" onchange="FormLoading(this)">
+                                            <input type="text" id="categoryInput" class="border w-full p-2 rounded-lg"
+                                                placeholder="Digite e selecione sua categoria/subcategoria" data-id=""
+                                                autocomplete="off" required>
                                         </div>
                                         <div class="w-full relative">
-                                            <div class="group w-full absolute hidden text-blue-400 bg-white rounded border">
-                                                <ul class="max-h-56 overflow-auto category">
-                                                    <li class="p-2 hover:bg-blue-500 hover:text-white" value="1">aaa</li>
-                                                    <li class="p-2 hover:bg-blue-500 hover:text-white" value="2">aaa</li>
-                                                    <li class="p-2 hover:bg-blue-500 hover:text-white" value="3">aaa</li>
-                                                    <li class="p-2 hover:bg-blue-500 hover:text-white" value="4">aaa</li>
-                                                    <li class="p-2 hover:bg-blue-500 hover:text-white" value="5">aaa</li>
-                                                    <li class="p-2 hover:bg-blue-500 hover:text-white" value="6">aaa</li>
-                                                    <li class="p-2 hover:bg-blue-500 hover:text-white" value="7">aaa</li>
-                                                    <li class="p-2 hover:bg-blue-500 hover:text-white" value="8">aaa</li>
+                                            <div
+                                                class="group help w-full absolute hidden text-blue-400 bg-white rounded border">
+                                                <ul class="max-h-56 overflow-auto category" id="results">
                                                 </ul>
                                             </div>
                                         </div>
@@ -88,7 +91,7 @@
                             </div>
                             <div>
                                 <button
-                                    class="border w-full p-2 rounded-lg bg-emerald-500 text-white hover:bg-emerald-600 prx disabled:bg-transparent disabled:text-gray-400"
+                                    class="border w-full p-2 rounded-lg bg-emerald-500 text-white hover:bg-emerald-600 btnprx disabled:bg-transparent disabled:text-gray-400"
                                     id="stepNext" disabled>Próximo</button>
 
                             </div>
@@ -96,7 +99,7 @@
 
                         <div class="flex flex-col gap-4 hidden h-full">
                             <div>
-                                <textarea name="" id="desc" class="h-full" onchange="FormLoading(this)"></textarea>
+                                <textarea id="desc_RES" class="h-full" required></textarea>
                             </div>
                             <div class="flex gap-3">
                                 <button
@@ -120,98 +123,140 @@
 
             <script src="/dropdown.js"></script>
 
-            <script>
-                function FormLoading(data) {
-                    if (data.id == "name_RES") {
-                        document.querySelector('#name').value = data.value
-                    }
-
-                    if (data.id == "desc") {
-                        document.querySelector('form textarea').value = data.value
-                    }
-
-                    if (data.id == "category") {
-                        document.querySelector('#category').value = data.value
-                        console.log(document.querySelector('#category').value)
-                        
-                    }
-                    
-                    if (document.querySelector('#category').value != "" && document.querySelector('#name').value != "") {
-                            document.querySelector('.prx').removeAttribute('disabled', 'disabled')
-                        } else {
-                            document.querySelector('.prx').setAttribute('disabled', 'disabled')
-                        }
-                };
-            </script>
+            <script src="/socket.io/socket.io.js"></script>
 
             <script>
+                const socket = io();
+
+                var categoryInput = document.getElementById('categoryInput');
+                var checkedInput = document.getElementById('checkedInput');
+                var resultsList = document.getElementById('results');
+                var help = document.querySelector('.help');
+                var query;
+
+                const categoryF = document.getElementById('category')
+                const nameF = document.getElementById('name')
+                const checkboxF = document.getElementById('checkbox')
+                const descF = document.getElementById('desc')
+
+                const btnprx = document.querySelector('.btnprx')
+
                 const Next = document.querySelectorAll('#stepNext')
                 const Back = document.querySelectorAll('#stepBack')
                 const Step = document.querySelectorAll('div#steps > div')
+                const card = document.querySelector('.card')
                 const StepCircle = document.querySelectorAll('#stepcircle div')
                 var StepCurrent = 0;
 
-                function VerifySteps(data) {
-                    if (data == 0) {
-                        Step[0].classList.remove('hidden')
-                        Step[1].classList.add('hidden')
-                        Step[2].classList.add('hidden')
-                        Step[3].classList.add('hidden')
 
-                        StepCircle[0].classList.remove('active')
-                        StepCircle[0].classList.remove('bg-emerald-500')
-                        StepCircle[2].classList.remove('active')
-                        StepCircle[2].classList.remove('bg-emerald-500')
-                    }
+                categoryInput.addEventListener('input', () => {
+                    help.classList.remove('hidden')
 
-                    if (data == 1) {
-                        Step[0].classList.add('hidden')
-                        Step[1].classList.remove('hidden')
-                        Step[2].classList.add('hidden')
-                        Step[3].classList.add('hidden')
+                    query = {
+                        searchText: categoryInput.value,
+                        checkbox: checkedInput.checked
+                    };
 
-                        document.querySelector('.box').classList.remove('w-4/5', 'h-4/5')
-                        document.querySelector('.box').classList.add('w-[570px]', 'h-[500px]')
+                    socket.emit('search', query);
+                });
 
-                        StepCircle[0].classList.remove('active')
-                        StepCircle[1].classList.remove('bg-emerald-500')
-                        StepCircle[2].classList.remove('active')
-                        StepCircle[3].classList.remove('bg-emerald-500')
-                    }
-
-                    if (data == 2) {
-                        Step[0].classList.add('hidden')
-                        Step[1].classList.add('hidden')
-                        Step[2].classList.remove('hidden')
-                        Step[3].classList.add('hidden')
-
-                        document.querySelector('.box').classList.add('w-4/5', 'h-4/5')
-
-                        StepCircle[0].classList.add('active')
-                        StepCircle[1].classList.add('bg-emerald-500')
-                        StepCircle[2].classList.remove('active')
-                        StepCircle[3].classList.remove('bg-emerald-500')
-                    }
-
-                    if (data == 3) {
-                        Step[0].classList.add('hidden')
-                        Step[1].classList.add('hidden')
-                        Step[2].classList.add('hidden')
-                        Step[3].classList.remove('hidden')
-
-                        document.querySelector('.box').classList.remove('p-5')
-                        setInterval(() => {
-                            document.querySelector('.load').classList.add('hidden')
-                            document.querySelector('.check').classList.remove('hidden')
-                            document.querySelector('form').submit();
-                        }, 1000)
-
-                        for (let index = 0; index < StepCircle.length; index++) {
-                            StepCircle[index].classList.add('hidden');
+                socket.on('searchResults', (items) => {
+                    resultsList.innerHTML = ``;
+                    items.forEach(item => {
+                        const li = document.createElement('li');
+                        if (item.Category != undefined) {
+                            li.innerHTML = `${item.name} <span class="text-gray-200">> ${item.Category.name}</span>`
+                        } else {
+                            li.innerHTML = `${item.name}`
                         }
+                        li.classList = "p-2 hover:bg-blue-500 hover:text-white";
+                        li.setAttribute('data-id', item.id)
+                        li.onclick = () => {
+                            categoryInput.value = item.name;
+                            categoryInput.dataset.id = item.id
+
+                            updateCategory(item.id)
+                            updateButtonNext()
+                        }
+                        resultsList.appendChild(li);
+                    });
+                });
+
+                var updateButtonNext = () => {
+                    categoryF.value != "" && nameF.value != "" ? btnprx.removeAttribute('disabled') : btnprx.setAttribute('disabled', 'disabled')
+                }
+
+                var updateTextarea = () => {
+                    descF.value = tinymce.get('desc_RES').getContent();
+                }
+
+                var updateCategory = (data) => {
+                    categoryF.value = data
+
+                    updateButtonNext()
+                }
+
+                var nameUpdate = (data) => {
+                    nameF.value = data.value
+
+                    updateButtonNext()
+                };
+
+                var verifyCheckbox = () => {
+                    categoryInput.value = ""
+                    categoryInput.dataset.id = ""
+                    categoryF.value = ""
+                    resultsList.innerHTML = ""
+                    checkboxF.checked = checkedInput.checked
+
+                    updateButtonNext()
+                }
+
+
+                var VerifySteps = (data) => {
+
+                    switch (data) {
+                        case 0:
+                            for (let index = 0; index < 3; index++) {
+                                index == 0 ? Step[0].classList.remove('hidden') : Step[index].classList.add('hidden')
+                            }
+                            break;
+                        case 1:
+                            for (let index = 0; index < 3; index++) {
+                                index == 1 ? Step[1].classList.remove('hidden') : Step[index].classList.add('hidden')
+                            }
+
+                            card.classList.remove('w-4/5', 'h-4/5')
+                            card.classList.add('w-[570px]', 'h-[350px]')
+                            break;
+                        case 2:
+                            for (let index = 0; index < 3; index++) {
+                                index == 2 ? Step[2].classList.remove('hidden') : Step[index].classList.add('hidden')
+                            }
+                            card.classList.add('w-4/5', 'h-4/5')
+
+                            StepCircle[0].classList.add('active')
+                            StepCircle[1].classList.add('bg-emerald-500')
+                            break;
+                        case 3:
+                            for (let index = 0; index < 3; index++) {
+                                index == 3 ? Step[3].classList.remove('hidden') : Step[index].classList.add('hidden')
+                            }
+                            document.querySelector('.sucess').classList.remove('hidden')
+                            card.classList.remove('p-5')
+                            setInterval(() => {
+                                document.querySelector('.load').classList.add('hidden')
+                                document.querySelector('.check').classList.remove('hidden')
+                                document.querySelector('form').submit();
+                            }, 1500)
+
+                            for (let index = 0; index < StepCircle.length; index++) {
+                                StepCircle[index].classList.add('hidden');
+                            }
+                            break;
+                        default:
+                            console.log(`Err`);
                     }
-
-
                 }
 
                 for (let index = 0; index < Next.length; index++) {

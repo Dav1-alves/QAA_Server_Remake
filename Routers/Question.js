@@ -4,6 +4,7 @@ const Categories = require('../Categories/Categories')
 const connection = require("../Database/database")
 const Question = require('../Question/Question')
 const subCategories = require('../Categories/subCategories/subCategories')
+const { Sequelize, DataTypes, Op } = require('sequelize');
 const { parse } = require('dotenv')
 require('dotenv').config()
 
@@ -45,9 +46,9 @@ app.post('/Save', (req, res) => {
 
         Question.create({
             name: form.name,
-            sub: form.subCategoriesCheck ? 1 : 0,
-            primaryCategoryId: form.subCategoriesCheck != undefined ? null : form.categories,
-            secondaryCategoryId: form.subCategoriesCheck != undefined ? form.categories : null,
+            sub: form.checkbox ? 1 : 0,
+            primaryCategoryId: form.checkbox != undefined ? null : form.category,
+            secondaryCategoryId: form.checkbox != undefined ? form.category : null,
             desc: form.desc,
             conclusion: 0,
             idUser: req.session.user.id
