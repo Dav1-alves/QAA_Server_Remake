@@ -52,12 +52,17 @@ app.post('/Authenticate', async (req, res) => {
     }
 
     if (password == "") {
+        var token
         var email = user.email
-        const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '15m' });
 
-        res.status(200).render('User/MagicLink')
+        try {
+            token = jwt.sign({ username }, process.env.JWT_SECRET, {expiresIn: '5m'});
 
-        console.log(`${process.env.BASE_URL}/User/MagicLink/${token}`)
+            console.log(`http://${process.env.BASE_URL}/Socket/Authenticate?code=${token}`)
+            return res.status(200).render('User/MagicLink')
+          } catch (err) {
+            return res.status(200).send(err.message)
+          }
 
     } else {
         bcrypt.compare(password, user.password, function (err, result) {
@@ -78,29 +83,5 @@ app.post('/Authenticate', async (req, res) => {
     }
 });
 
-app.get('/MagicLink/:token', (req, res) => {
-
-    const { token } = req.params;
-
-    jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
-        if (err) {
-            return res.status(401).send('Token inválido ou expirado');
-        }
-
-        await User.findOne({ where: { email: decoded.email } }).then(user => {
-
-            req.session.user = {
-                id: user.id,
-                username: user.user,
-                email: user.email,
-                status: user.status
-            };
-
-        });
-
-        return res.redirect('/browser');
-
-    });
-});
 
 module.exports = app;
