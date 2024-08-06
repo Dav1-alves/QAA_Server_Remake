@@ -32,6 +32,9 @@
     "socket.io": "^4.7.5"
   },
   "devDependencies": {
-    "@types/slug": "^5.0.8"
+    "@eslint/js": "^9.8.0",
+    "@types/slug": "^5.0.8",
+    "eslint": "^9.8.0",
+    "globals": "^15.9.0"
   }
 }

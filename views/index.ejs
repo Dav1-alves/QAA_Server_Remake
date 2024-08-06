@@ -1,64 +1,83 @@
 <%- include ('./partials/header.ejs') %>
 
-  <body class="bg-[#000] bg-[url('background.jpg')] w-screen h-screen bg-cover bg-bottom bg-no-repeat overflow-hidden">
-    
-    
-      <%- include ('./partials/menu.ejs') %>
+    <style>
+        @font-face {
+            font-family: 'Quantify';
+            src: url('/quantify.woff2') format('woff2');
+            src: url('/quantify.woff') format('woff');
+            font-weight: normal;
+        }
+    </style>
 
-    <div style="height: calc(100% - 68px);" class="bg-[#00000051] w-full">
-        <main class="w-full" style="height: calc(100% - 68px);">
+    <body
+        class="bg-[#000] bg-[url('background_init.jpg')] w-screen h-screen bg-cover bg-bottom bg-no-repeat overflow-hidden">
 
-            <div class="bg-[url('Teacher.png')] max-xl:mt-5 bg-contain absolute w-full md:top-[7.5%] bg-no-repeat bg-bottom pointer-events-none z-10 h-full"
-                ></div>
 
-            <h1 class="uppercase text-transparent text-[20vw] tracking-widest absolute top-2/4 left-2/4 translate-y-[-50%] translate-x-[-50%] -z-10 leading-none if" style="
+        <%- include ('./partials/menu.ejs') %>
+
+            <div style="height: calc(100% - 68px);" class="bg-[#00000051] w-full">
+                <main class="w-full" style="height: calc(100% - 68px);">
+
+                    <div
+                        class="bg-[url('Teacher.png')] max-xl:mt-5 bg-contain absolute w-full md:top-[7.5%] bg-no-repeat bg-bottom pointer-events-none z-10 h-full">
+                    </div>
+
+                    <h1 class="uppercase text-transparent text-[18vw] tracking-widest absolute top-2/4 left-2/4 translate-y-[-50%] translate-x-[-50%] font-['Quantify'] -z-10 leading-none if"
+                        style="
             -webkit-text-stroke-width: 2px;
             ">
-                Teacher
-                <p class="text-[5vw] text-center if">Lorem ipsum dolor</p>
-            </h1>
+                        Teacher
+                        <p class="text-[5vw] text-center if">Lorem ipsum dolor</p>
+                    </h1>
 
 
-            <div class="absolute bottom-5 max-md:bottom-0 w-full flex justify-evenly z-10 text-white flex max-md:flex-col p-5">
-                <div class="w-5/12 h-48 flex flex-col gap-3 rounded-3xl max-sm:hidden p-5 bg-[#00000051] backdrop-blur max-md:w-full text-[#ffeedec9]">
-                    <h3 class="text-2xl">Lorem ipsum dolor</h3>
-                    <p class="truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur accusantium quasi incidunt est, nemo neque quis dolorum quam vel alias voluptatem ad sed officiis ea quos dicta delectus. Maxime, dolore!</p>
-                    
-                    <div class="flex gap-2">
-                        <a href="" class="mt-7">
-                            <button class="bg-slate-600 px-10 rounded-xl py-3 hover:bg-slate-700 transition">Visualizar</button>
-                        </a>
+                    <div
+                        class="absolute bottom-5 max-md:bottom-0 w-full flex justify-evenly z-10 text-white flex max-md:flex-col p-5">
+                        <div
+                            class="w-5/12 h-48 flex flex-col gap-3 rounded-3xl max-sm:hidden p-5 bg-[#00000051] backdrop-blur max-md:w-full text-[#ffeedec9]">
+                            <h3 class="text-2xl">Lorem ipsum dolor</h3>
+                            <p class="truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur
+                                accusantium quasi incidunt est, nemo neque quis dolorum quam vel alias voluptatem ad sed
+                                officiis ea quos dicta delectus. Maxime, dolore!</p>
+
+                            <div class="flex gap-2">
+                                <a href="" class="mt-7">
+                                    <button
+                                        class="bg-slate-600 px-10 rounded-xl py-3 hover:bg-slate-700 transition">Visualizar</button>
+                                </a>
+                            </div>
+
+                        </div>
+                        <div
+                            class="w-5/12 h-48 flex flex-col gap-3 rounded-3xl p-5 bg-[#00000051] backdrop-blur max-md:w-full max-md:mt-2 text-[#ffeedec9]">
+                            <h3 class="text-2xl">Deseja conhecer mais?</h3>
+                            <p class="truncate">O'q acha de perguntar mais e ensinar perguntadores?</p>
+
+                            <div class="flex gap-2">
+                                <a href="/User/Login" class="mt-7">
+                                    <button
+                                        class="bg-slate-600 px-10 rounded-xl py-3 hover:bg-slate-700 transition">Login</button>
+                                </a>
+                                <a href="/User/New" class="mt-7">
+                                    <button class="border px-10 rounded-xl py-3">Cadastrar</button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
-                </div>
-                <div class="w-5/12 h-48 flex flex-col gap-3 rounded-3xl p-5 bg-[#00000051] backdrop-blur max-md:w-full max-md:mt-2 text-[#ffeedec9]">
-                    <h3 class="text-2xl">Deseja conhecer mais?</h3>
-                    <p class="truncate">O'q acha de perguntar mais e ensinar perguntadores?</p>
-                    
-                    <div class="flex gap-2">
-                        <a href="/User/Login" class="mt-7">
-                            <button class="bg-slate-600 px-10 rounded-xl py-3 hover:bg-slate-700 transition">Login</button>
-                        </a>
-                        <a href="/User/New" class="mt-7">
-                            <button class="border px-10 rounded-xl py-3">Cadastrar</button>
-                        </a>
-                    </div>
-                </div>
+                </main>
             </div>
 
-        </main>
-    </div>
+            <script>
+                const random = Math.floor(Math.random() * (10 - 0) + 1)
+                if (random > 5) {
+                    document.body.classList.add('bg-[#000]');
+                    document.querySelector('.if').style.webkitTextStrokeColor = "#000";
+                } else {
+                    document.body.classList.add('bg-[#fff]');
+                    document.querySelector('.if').style.webkitTextStrokeColor = "#ffeedec9";
+                }
+            </script>
 
-    <script>
-      const random = Math.floor(Math.random() * (10 - 0) + 1)
-      if (random > 5) {
-        document.body.classList.add('bg-[#000]');
-        document.querySelector('.if').style.webkitTextStrokeColor = "#000";
-      } else {
-        document.body.classList.add('bg-[#fff]');
-        document.querySelector('.if').style.webkitTextStrokeColor = "#ffeedec9";
-      }
-    </script>
-
-  </body>
-  <%- include ('./partials/footer.ejs') %>
+    </body>
+    <%- include ('./partials/footer.ejs') %>
