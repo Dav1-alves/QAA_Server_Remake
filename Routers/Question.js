@@ -59,6 +59,35 @@ app.post('/Save', (req, res) => {
     return res.redirect('/User/Login')
 })
 
+app.get('/:id', async (req, res) => {
+
+    
+    const categories = await Categories.findAll({
+        include: [{
+            model: subCategories,
+            limit: 10,
+        }], limit: 4, order: connection.random()
+    })
+    
+    Question.findAll({
+        order: [['ID', 'DESC']],
+        include: [
+            { model: Categories },
+            { model: subCategories }
+        ],
+         limit: 10
+    }).then(questions => {
+
+        Question.findOne({ where: { id: req.params.id } }).then(Question => {
+            res.render('Question/render', { categories, questions, user: req.session.user, Question })
+        })
+        
+    }).catch(error => {
+        console.error('Error fetching questions:', error);
+        res.status(500).send(error);
+    });
+
+})
 
 
 module.exports = app

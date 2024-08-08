@@ -23,3 +23,5 @@ for (let index = 0; index < dropdown.length; index++) {
     };
 
 }
+
+document.body.classList.add('min-h-screen')
